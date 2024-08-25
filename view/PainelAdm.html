@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="divPainel"></div>
+    <div id="divMenu">
+        <div><a href="Cargos.html">Cargos</a></div>
+        <div><a href="Funcionarios.html">Funcionarios</a></div>
+    </div>
+</body>
+<script src = "/view/js/sessao.js"></script>
+<script>
+    let divPainel = document.getElementById("divPainel");
+    const objetoFuncionario = JSON.parse(localStorage.getItem("jsonFuncionario"));
+    let texto= "Bem Vindo: " + objetoFuncionario.nome + " ("+objetoFuncionario.email+")."
+    divPainel.appendChild(document.createTextNode(texto));
+</script>
+
+</html>

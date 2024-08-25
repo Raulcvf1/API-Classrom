@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>Login & Register</title>
+  </head>
+  <body>
+    <div class="container-page" id="Container" style="height: 700px">
+      <div class="login-container" id="LoginContainer">
+        <h1 class="title">Cadastrar</h1>
+        <div class="input-line-container">
+          <span class="name-input"><h3>Registro</h3></span>
+          <input type="text" id="txtRegistro" class="input-line" id="" />
+        </div>
+        <div class="input-line-container">
+          <span class="name-input"><h3>Nome de usuário</h3></span>
+          <input type="text" id="txtNome" class="input-line" id="" />
+        </div>
+        <div class="input-line-container">
+          <span class="name-input"><h3>Email</h3></span>
+          <input type="text" id="txtEmail" class="input-line" id="" />
+        </div>
+        <div class="input-line-container">
+          <span class="name-input"><h3>Senha</h3></span>
+          <input type="password" id="txtSenha" class="input-line" id="" />
+        </div>
+        <div class="form-group">
+          <label for="tipo">Tipo:</label>
+          <select name="tipo" id="tipo">
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+
+        <br />
+        <div class="form-group">
+          <input
+            type="checkbox"
+            name="vehicle1"
+            value="1"
+            id="chkContaADM"
+          /><label> Conta ADM</label>
+        </div>
+        <br />
+
+        <div id="divResposta"></div>
+        <button id="btnRegister" type="submit" class="button-login">
+          Registre-se
+        </button>
+        <div id="btnLogin" class="button-second">Login</div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/cadastro.js"></script>
+  </body>
+</html>

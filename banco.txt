@@ -1,0 +1,93 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema paw007
+-- -----------------------------------------------------
+DROP SCHEMA IF EXISTS `paw007` ;
+
+-- -----------------------------------------------------
+-- Schema paw007
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `paw007` DEFAULT CHARACTER SET utf8 ;
+USE `paw007` ;
+
+-- -----------------------------------------------------
+-- Table `paw007`.`Cargo`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `paw007`.`Cargo` ;
+
+CREATE TABLE IF NOT EXISTS `paw007`.`Cargo` (
+  `idCargo` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nomeCargo` VARCHAR(45) NULL,
+  PRIMARY KEY (`idCargo`),
+  UNIQUE INDEX `idCargo_UNIQUE` (`idCargo` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `paw007`.`Funcionario`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `paw007`.`Funcionario` ;
+
+CREATE TABLE IF NOT EXISTS `paw007`.`Funcionario` (
+  `idFuncionario` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `senha` CHAR(32) NULL,
+  `recebeValeTransporte` TINYINT NULL,
+  `Cargo_idCargo` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`idFuncionario`),
+  UNIQUE INDEX `idFuncionario_UNIQUE` (`idFuncionario` ASC),
+  INDEX `fk_Funcionario_Cargo_idx` (`Cargo_idCargo` ASC),
+  CONSTRAINT `fk_Funcionario_Cargo`
+    FOREIGN KEY (`Cargo_idCargo`)
+    REFERENCES `paw007`.`Cargo` (`idCargo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `paw007`.`Cargo`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paw007`;
+INSERT INTO `paw007`.`Cargo` (`idCargo`, `nomeCargo`) VALUES (1, 'Estagiário');
+INSERT INTO `paw007`.`Cargo` (`idCargo`, `nomeCargo`) VALUES (2, 'Técnico em Informática');
+INSERT INTO `paw007`.`Cargo` (`idCargo`, `nomeCargo`) VALUES (3, 'Analista de Sistemas Junior');
+INSERT INTO `paw007`.`Cargo` (`idCargo`, `nomeCargo`) VALUES (4, 'Analista WEB Senior');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `paw007`.`Funcionario`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `paw007`;
+INSERT INTO `paw007`.`Funcionario` (`idFuncionario`, `nome`, `email`, `senha`, `recebeValeTransporte`, `Cargo_idCargo`) VALUES (1, 'admin', 'admin@admin', 'e10adc3949ba59abbe56e057f20f883e', 1, 4);
+
+COMMIT;
+
+use `paw007`;
+-- -----------------------------------------------------
+-- Table `paw007`.`Professor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `paw007`.`Professor` (
+  `registro` INT UNSIGNED NOT NULL,
+  `nome` VARCHAR(128) NULL,
+  `email` VARCHAR(45) NULL,
+  `senha` VARCHAR(32) NULL,
+  `tipo` INT NULL COMMENT '1 - Professor\n2 - Professor Administrador\n',
+  PRIMARY KEY (`registro`),
+  UNIQUE INDEX `registro_UNIQUE` (`registro` ASC))
+ENGINE = InnoDB;
+

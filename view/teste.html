@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<script>
+
+    let array =[];
+    const obj1 = {nome:"helio",email:"helioesperidiao@gmail.com"};
+    const obj2 = {nome:"maria",email:"maria@teste.com"};
+    array.push(obj1);
+    array.push(obj2);
+    console.log(array);
+    console.log(array[1])
+
+    //criando sua propria Promise
+    const minhaPromise = new Promise((resolve, reject) => {
+    //realize a operação paralela aqui dentro.
+     const sucesso = true; // Altere para false para simular um erro
+    if (sucesso) {
+      resolve("Operação bem-sucedida!");
+    } else {
+      reject("Ocorreu um erro na operação!");
+    }
+});
+// Usando a Promise
+minhaPromise.then((resultado) => {
+  //executado apenas quando for chamado o resolve("Operação bem-sucedida!");
+  console.log(resultado); // "Operação bem-sucedida!"
+}).catch((erro) => {
+    //executado apenas quando for chamado o reject("Ocorreu um erro na operação!");;
+    console.error(erro); // "Ocorreu um erro!"
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div><a href="PainelAdm.html"> Voltar para o painel</a> </div>
+    <div id="divFormulario">
+        <div id="divResposta"></div>
+		<div>Id Cargo:<input type="text" id="txtIdCargo" disabled></div>
+        <div>Cargo:<input type="text" id="txtCargo"></div>       
+    </div>
+    <div id="divBotaoComando">
+       <button id="btnCadastrar">Cadastrar</button>
+       <button id="btnAtualizar">Atualizar</button>
+       <button id="btnExcluir">Excluir</button>
+       <button id="btnCancelar">Cancelar</button>
+    
+    </div>
+    <div>
+    <div id="divFiltro">Filtrar: <input type="text" id ="txtFiltro"></div>    
+	<table id="tblCargos" border="1">
+		<th>id</th>
+		<th>cargo</th>
+        <th>Selecionar</th>
+	</table>
+</div>
+</body>
+<script src = "/view/js/cargos.js"></script>
+</html>

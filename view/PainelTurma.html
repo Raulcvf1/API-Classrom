@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="css/style_hp.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img
+            src="css/img/logo.png"
+            alt="Avatar Logo"
+            style="width: 40px"
+            class="rounded-pill"
+          />
+        </a>
+        <a class="navbar-brand" href="#">Uni-Class</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapsibleNavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="#" id="btnHome">home</a>
+            </li>
+          </ul>
+        </div>
+        <div id="divPainel" style="color: white"></div>
+      </div>
+    </nav>
+
+    <div class="container mt-5">
+      <div class="row" id="container">
+        <div class="col-sm-4">
+          <div class="card bg-secondary text-white" style="width: 400px">
+            <div class="card-body">
+              <h4 class="card-title">Add Turma</h4>
+              <p class="card-text">
+                O processo de adicionar uma Turma faz com que se possa realizar
+                a inserção de disciplina e notas a partir desta
+              </p>
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#modalTurma"
+              >
+                Criar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL DA TURMA -->
+
+    <div class="modal fade" id="modalTurma">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Cadastrar uma Turma</h4>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="input-line-container">
+              <span class="name-input">Nome da Turma</span>
+              <input type="text" id="txtNome_T" class="input-line" />
+            </div>
+            <div class="input-line-container">
+              <span class="name-input">Abreviacao</span>
+              <input type="text" id="txtAbreviacao" class="input-line" />
+            </div>
+            <div class="input-line-container">
+              <span class="name-input">Ano</span>
+              <input type="text" id="txtAno" class="input-line" />
+            </div>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+              id="btnTurma"
+            >
+              Criar
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="/js/turma.js"></script>
+    <script type="text/javascript" src="/js/botoes.js"></script>
+    <script>
+      let divPainel = document.getElementById("divPainel");
+      const objetoProfessor = JSON.parse(localStorage.getItem("jsonProfessor"));
+      let texto =
+        "Bem Vindo: " +
+        objetoProfessor.nome;
+      divPainel.appendChild(document.createTextNode(texto));
+
+      //AQUI A GNT DA ATUALIZANDO AS TURMAS ANTES DE RODAR TUDO OU QUALQUER COISA
+
+      window.onload = function () {
+        const uri = "/turma";
+
+        const requisicao_assincrona = fetch(uri, {
+          method: "get",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: "",
+          },
+        });
+
+        requisicao_assincrona
+          .then((response) => {
+            return response.json();
+          })
+          .then((objetoJson) => {
+            if (objetoJson.status === true) {
+              const dados = objetoJson.dados;
+
+              dados.forEach((turma) => {
+                console.log("Nome:", turma.nome);
+
+                if (turma.nome != "") {
+                  var divCol = document.createElement("div");
+                  var divCard = document.createElement("div");
+                  var divCardBody = document.createElement("div");
+                  var cardTitle = document.createElement("h4");
+                  var cardText = document.createElement("p");
+                  var buttonCriar = document.createElement("button");
+
+                  divCol.classList.add("col-sm-4");
+                  divCard.classList.add("card");
+                  divCard.classList.add("bg-secondary");
+                  divCard.classList.add("text-white");
+                  divCard.style.width = "400px";
+                  divCardBody.classList.add("card-body");
+                  cardTitle.classList.add("card-title");
+                  cardTitle.textContent =
+                    "Nome da Turma: " +
+                    turma.nome +
+                    " | Codigo da turma: " +
+                    turma.idTurma;
+                  cardText.classList.add("card-text");
+                  cardText.textContent =
+                    "Acesse a turma " +
+                    turma.nome +
+                    " para poder criar disciplinas e adicionar notas";
+                  buttonCriar.classList.add("btn", "btn-success");
+                  buttonCriar.type = "button";
+                  buttonCriar.textContent = "Aceder";
+
+                  // Adiciona um evento de clique ao botão
+                  buttonCriar.addEventListener("click", function () {
+                    // Chama a função e passa as informações relevantes
+                    handleClick(turma.nome, turma.idTurma);
+                  });
+
+                  divCardBody.appendChild(cardTitle);
+                  divCardBody.appendChild(cardText);
+                  divCardBody.appendChild(buttonCriar);
+
+                  divCard.appendChild(divCardBody);
+                  divCol.appendChild(divCard);
+
+                  var container = document.getElementById("container");
+                  container.appendChild(divCol);
+                }
+              });
+            } else {
+              console.log("deu ruim");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      };
+
+      // Função para lidar com o clique do botão
+      function handleClick(nomeTurma, idTurma) {
+        // Imprime as informações no console
+        console.log(
+          "Botão clicado! Nome da Turma:",
+          nomeTurma,
+          "| ID da Turma:",
+          idTurma
+        );
+
+        // Cria um objeto para armazenar os valores
+        var dadosTurma = {
+          turma: {
+            nomeTurma: nomeTurma,
+            idTurma: idTurma,
+          },
+        };
+
+        // Converte o objeto para uma string JSON e armazena no localStorage
+        localStorage.setItem("dadosTurma", JSON.stringify(dadosTurma));
+
+        // Redireciona o usuário para outra página (substitua 'sua_pagina.html' pelo URL desejado)
+        window.location.href = "PainelDisciplina.html";
+      }
+    </script>
+  </body>
+</html>
